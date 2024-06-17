@@ -75,5 +75,13 @@ echo “API response : $response”
 It return APIs response which was created.
 
 # Attaching some snapshats for refernce below--
+```
+<img width="793" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/a2dea885-623b-49ac-a9b5-0512720f7b3a">
+
+
+
+```
+
+
 
 
