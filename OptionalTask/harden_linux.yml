@@ -1,0 +1,132 @@
+---
+- name: Harden Linux Instance
+  hosts: all
+  become: yes
+
+  vars:
+    # SSH configuration
+    ssh_port: 22
+    ssh_permit_root_login: 'no'
+    ssh_password_authentication: 'no'
+
+    # Firewall configuration
+    allowed_ports:
+      - 22  # SSH
+      - 80  # HTTP
+      - 443 # HTTPS
+
+  tasks:
+    - name: Update and upgrade the system
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_os_family == 'Debian'
+
+    - name: Update and upgrade the system
+      yum:
+        name: '*'
+        state: latest
+      when: ansible_os_family == 'RedHat'
+
+    - name: Ensure UFW is installed (Debian-based systems)
+      apt:
+        name: ufw
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure Firewalld is installed (RedHat-based systems)
+      yum:
+        name: firewalld
+        state: present
+      when: ansible_os_family == 'RedHat'
+
+    - name: Allow necessary ports with UFW (Debian-based systems)
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+      loop: "{{ allowed_ports }}"
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure UFW is enabled (Debian-based systems)
+      ufw:
+        state: enabled
+      when: ansible_os_family == 'Debian'
+
+    - name: Allow necessary ports with Firewalld (RedHat-based systems)
+      firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      loop: "{{ allowed_ports }}"
+      when: ansible_os_family == 'RedHat'
+
+    - name: Ensure Firewalld is started and enabled (RedHat-based systems)
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      when: ansible_os_family == 'RedHat'
+
+    - name: Secure SSH configuration
+      blockinfile:
+        path: /etc/ssh/sshd_config
+        block: |
+          Port {{ ssh_port }}
+          PermitRootLogin {{ ssh_permit_root_login }}
+          PasswordAuthentication {{ ssh_password_authentication }}
+      notify: Restart SSH
+
+    - name: Disable root login
+      lineinfile:
+        path: /etc/passwd
+        regexp: '^root:'
+        line: 'root:x:0:0:root:/root:/sbin/nologin'
+
+    - name: Ensure password authentication is disabled
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      notify: Restart SSH
+
+    - name: Disable unused filesystems
+      mount:
+        name: /dev/cdrom
+        state: absent
+
+    - name: Disable unnecessary services
+      service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: no
+      loop:
+        - avahi-daemon
+        - cups
+        - dhcpd
+        - nfs
+        - rpcbind
+        - bind
+        - vsftpd
+        - httpd
+        - dovecot
+        - smb
+        - squid
+        - snmpd
+        - ypserv
+        - telnet
+        - rsh
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
+      when: ansible_os_family == 'Debian'
+
+    - name: Restart SSH
+      service:
+        name: sshd
+        state: restarted
+      when: ansible_os_family == 'RedHat'
+
