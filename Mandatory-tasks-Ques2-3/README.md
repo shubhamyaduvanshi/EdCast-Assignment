@@ -41,6 +41,8 @@ go-calc is a simple 2 operand calculator over http written in go-lang. Please fo
 Pls find link here for dockerfile created and uploaded to dockerhub...
 
 https://hub.docker.com/repository/docker/8052755876/go-calc-db/general
+```
+
 
 ```
 1. Deploy the application in a kubernetes cluster - minikube will be fine. Deployment technique should be extendible to multiple environment - Used Minikube
@@ -108,3 +110,7 @@ $ 6
 $ curl -X GET http://localhost:8080/status
 $ ok
 ```
+Application Running as below with task2 and task3 (Count Endpoints Fetched from database making query as count(*) from table <tablename>)
+
+![image](https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/30ce6698-7e6c-41c0-93c4-49fae46ecea7)
+
