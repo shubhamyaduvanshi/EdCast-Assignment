@@ -1,7 +1,7 @@
 1. Ensure Ansible is installed:
 
-sudo apt-get install ansible  # Debian/Ubuntu
-sudo yum install ansible      # CentOS/RHEL
+
+sudo apt install ansible
 
 
 2. Run the Playbook:
