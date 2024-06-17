@@ -11,6 +11,15 @@
 
 #  TASK3: MySQL/PostgreSQL - connect via a local client, show queries on some test data that was inserted
 
+<img width="791" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/f018a3d3-4389-4df1-88ff-91aab64c1c1b">
+
+Showing Database queriies and additional endpoint in this api as Count-----
+
+<img width="851" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/4d7a4650-233e-40be-90ab-3c7426673930">
+
+
+
+
 ```  
  1. As part of task 3 we added mysql client which will store each post operation on this API like add,subtract and multiply operation
   2.  Proposed new  functionality with count endpoint which will return total of post api hit so for....using GET method
