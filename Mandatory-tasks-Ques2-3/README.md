@@ -3,6 +3,12 @@
 <img width="789" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/be391324-13d5-43b2-a218-5757f8d2b65e">
 
 
+<img width="809" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/a810a157-f046-4d23-a5be-795e06af21f5">
+
+
+![image](https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/a3a6f754-6e51-4b50-9a23-6bae4beb7156)
+
+
 #  TASK3: MySQL/PostgreSQL - connect via a local client, show queries on some test data that was inserted
 
 ```  
