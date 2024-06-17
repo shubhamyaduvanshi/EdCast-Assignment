@@ -81,6 +81,8 @@ It return APIs response which was created.
 
 
 ```
+<img width="793" alt="image" src="https://github.com/shubhamyaduvanshi/EdCast-Assignment/assets/33774926/d3c487ff-fdbf-4497-aa89-f0cdd07e98af">
+
 
 
 
