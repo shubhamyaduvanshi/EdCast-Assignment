@@ -31,6 +31,7 @@ resource "aws_api_gateway_resource" "resource" {
   path_part   = "{proxy+}"
 }
 
+# Method request setting
 resource "aws_api_gateway_method" "method" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
   resource_id   = aws_api_gateway_resource.resource.id

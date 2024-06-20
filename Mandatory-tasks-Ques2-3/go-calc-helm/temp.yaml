@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-06-18T20:24:07Z"
+  generateName: go-calc-db-app-go-calc-helm-6f78886c9b-
+  labels:
+    app.kubernetes.io/instance: go-calc-db-app
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: go-calc-helm
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: go-calc-helm-0.1.0
+    pod-template-hash: 6f78886c9b
+  name: go-calc-db-app-go-calc-helm-6f78886c9b-6fr4j
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: go-calc-db-app-go-calc-helm-6f78886c9b
+    uid: d72d73df-845f-4b1a-9b47-2af0ee5cc16e
+  resourceVersion: "537"
+  uid: a31248f4-845c-40b9-a4b6-0b54384ba7e5
+spec:
+  containers:
+  - image: 8052755876/edcast-go-calc:latest
+    imagePullPolicy: IfNotPresent
+    name: go-calc-helm
+    ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    resources: {}
+    securityContext: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-r5pzr
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: go-calc-db-app-go-calc-helm
+  serviceAccountName: go-calc-db-app-go-calc-helm
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-r5pzr
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-06-18T20:24:33Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2024-06-18T20:24:07Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-06-18T20:24:33Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-06-18T20:24:33Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-06-18T20:24:07Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://abc01e41b35bc0acb1ebc6f5164a36d180b46be8578158414fe0da3ef191dbcb
+    image: 8052755876/edcast-go-calc:latest
+    imageID: docker-pullable://8052755876/edcast-go-calc@sha256:f5cda77472b2c4d87207536f29859b7531a13300d279f25ae4be3e732c9b983b
+    lastState: {}
+    name: go-calc-helm
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-06-18T20:24:33Z"
+  hostIP: 192.168.49.2
+  hostIPs:
+  - ip: 192.168.49.2
+  phase: Running
+  podIP: 10.244.0.4
+  podIPs:
+  - ip: 10.244.0.4
+  qosClass: BestEffort
+  startTime: "2024-06-18T20:24:07Z"

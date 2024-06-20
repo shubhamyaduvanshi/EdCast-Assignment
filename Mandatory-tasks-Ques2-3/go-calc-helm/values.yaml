@@ -2,13 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 5
 
 image:
-  repository: 8052755876/edcast-go-calc
+  repository: 8052755876/go-calc-db
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v1.0"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -43,6 +43,7 @@ service:
   type: NodePort
   port: 3000
   targetPort: 8080
+  nodePort: 30845
 
 ingress:
   enabled: false

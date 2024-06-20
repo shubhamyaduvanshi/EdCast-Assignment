@@ -95,27 +95,6 @@
         name: /dev/cdrom
         state: absent
 
-    - name: Disable unnecessary services
-      service:
-        name: "{{ item }}"
-        state: stopped
-        enabled: no
-      loop:
-        - avahi-daemon
-        - cups
-        - dhcpd
-        - nfs
-        - rpcbind
-        - bind
-        - vsftpd
-        - httpd
-        - dovecot
-        - smb
-        - squid
-        - snmpd
-        - ypserv
-        - telnet
-        - rsh
 
   handlers:
     - name: Restart SSH

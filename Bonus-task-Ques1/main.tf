@@ -1,22 +1,32 @@
-provider "aws" {
-  region = "us-east-1"  # Adjust the region as per your AWS setup
-}
 
 resource "aws_api_gateway_rest_api" "example_api" {
   name        = "my-api"
   description = "API Gateway for my application"
 }
 
+resource "aws_api_gateway_deployment" "deployment" {
+  rest_api_id = aws_api_gateway_rest_api.example_api.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_method.post_method,
+    aws_api_gateway_integration.app_integration
+  ]
+}
+
 resource "aws_api_gateway_resource" "add_resource" {
   rest_api_id = aws_api_gateway_rest_api.example_api.id
   parent_id   = aws_api_gateway_rest_api.example_api.root_resource_id
-  path_part   = "add"
+  path_part   = "count"
 }
 
 resource "aws_api_gateway_method" "post_method" {
   rest_api_id   = aws_api_gateway_rest_api.example_api.id
   resource_id   = aws_api_gateway_resource.add_resource.id
-  http_method   = "POST"
+  http_method   = "GET"
   authorization = "NONE"
 }
 
@@ -24,9 +34,10 @@ resource "aws_api_gateway_integration" "app_integration" {
   rest_api_id             = aws_api_gateway_rest_api.example_api.id
   resource_id             = aws_api_gateway_resource.add_resource.id
   http_method             = aws_api_gateway_method.post_method.http_method
-  integration_http_method = "POST"
+  integration_http_method = "GET"
   type                    = "HTTP_PROXY"
-  uri                     = "http://localhost:8080/add"  # Replace with your Go app endpoint
+  #uri                     = "http://13.233.86.88:30845/count" # Replace with your Go app endpoint
+  uri                     = "http://localhost:4566/count"
   request_parameters = {
     "integration.request.header.Content-Type" = "'application/json'"
   }

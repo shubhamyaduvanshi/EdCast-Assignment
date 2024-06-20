@@ -1,13 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: group-specific-pods
+  name: network-policy
+  namespace: bonus
 spec:
   podSelector:
     matchLabels:
-      group: webapp
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          name: jenkins
+      app: wordpress
+  policyTypes:
+    - Ingress
+    - Egress
